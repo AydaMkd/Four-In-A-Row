@@ -24,7 +24,19 @@ const row2 = [cells[14], cells[15], cells[16], cells[17], cells[18], cells[19], 
 const row3 = [cells[21], cells[22], cells[23], cells[24], cells[25], cells[26], cells[27]];
 const row4 = [cells[28], cells[29], cells[30], cells[31], cells[32], cells[33], cells[34]];
 const row5 = [cells[35], cells[36], cells[37], cells[38], cells[39], cells[40], cells[41]];
+
 const rows = [topRow,row0, row1, row2, row3, row4, row5];
+
+//Diagonal winning cells
+
+let array0= [row0[0], row1[1], row2[2], row3[3], row4[4], row5[5]];
+let array1= [row1[0], row2[1], row3[2], row4[3], row5[4]];
+let array2=[row2[0], row3[1], row4[2], row5[3]];
+console.log(array1);
+
+let array3= [row0[6],row1[5], row2[4], row3[3], row4[2],row5[1]];
+let array4= [row1[6], row2[5], row3[4], row4[3], row5[2]];
+let array5= [row2[6], row3[5], row4[4], row5[3]];
 
 
 function setTopRowEventListener(){
@@ -69,8 +81,11 @@ function setTopRowEventListener(){
 function cellClick(e){
     
     let cellColRow= clickedCellPosition(e);
+    let currentColor= addColor();
+    
 
     let cellCol= cellColRow[0];
+    let rowsTopOut= rows.slice(1);
 
     let tableCol = columns[cellCol];
     let topRowOut= tableCol.slice(0,6);
@@ -89,13 +104,10 @@ function cellClick(e){
     let cell= cellChoice();
     cell.classList.add(addColor());
     
-   
-    checkDiagonally(cell,e,cellColRow);
+    checkDiagonally(array0, array1, array2, array3, array4, array5, currentColor);
     
-  
-       
-
-yellowTurn=!yellowTurn;
+    
+    yellowTurn=!yellowTurn;
            
         
 }
@@ -106,93 +118,24 @@ function dropToken(e){
     let columnNumber= e.target.classList.toString().substring(15,16);
 }
 
-function checkDiagonally(cell,e,cellColRow){
-//get the position of current colored cell
-let clickedCell= e.target;
-let cellCickedCol= cellColRow[0];
-let color = addColor();
-let table= 0;
-for (let i= 5; i>=0; i--)
-{
-    let clickedCellCol= columns[cellCickedCol][i];
-    let ColList= clickedCellCol.classList;
-    let arrayCells = Array.from(ColList);
-    for (let j =0; j <= arrayCells.length; j++){
-    let cases= arrayCells[j];
-    if (cases== "yellow" || cases == "red"){
-        table= table+1;
-    }
-    else {table= table};
+
+function checkDiagonally(array0, array1, array2, array3, array4, array5, currentColor){
     
-    
-    }}
+let number0=  checkDiagonalArrays(array0,currentColor);
+let number1=  checkDiagonalArrays(array1,currentColor);
+let number2=   checkDiagonalArrays(array2,currentColor);
+let number3=   checkDiagonalArrays(array3,currentColor);
+let number4=   checkDiagonalArrays(array4, currentColor);
+let number5=  checkDiagonalArrays(array5, currentColor);
 
-let cellRowNumber= 6-table;
-//let currentCell= columns[cellCickedCol][cellRowNumber];
-
-
-let sameColorCells= [cell];
-
-
-let rowstoCheck= rows.slice(1);
-
-// check diagonally for same color cells under the current cell
-let currentPosition= cellRowAndCol(cell.classList);
-console.log(currentPosition);
-console.log(cell);
-let nextRowtoCheckDown= currentPosition[0]+1;
-let nextColtoCheckDown= currentPosition[1]+1;
-
-
-
-while (nextRowtoCheckDown<=5 && nextColtoCheckDown<=6){
-
-let nextCheckedCellDown= rowstoCheck[nextRowtoCheckDown][nextColtoCheckDown];
-console.log(nextCheckedCellDown);
-
-let arrayClasslistDown= Array.from(nextCheckedCellDown.classList);
-console.log(arrayClasslistDown);
-
-
-    if (arrayClasslistDown.includes(color)){
-        sameColorCells.push(nextCheckedCellDown)
-        nextColtoCheckDown= nextRowtoCheckDown++;
-        nextColtoCheckDown= nextColtoCheckDown++
-
-    }
- 
-  else {break;}
-}
   
+let table= [number0 , number1, number2, number3, number4, number5]   ;
+console.log(table);
 
+checkForWinner(table,currentColor);
 
-let nextRowtoCheckUp= currentPosition[0]-1;
-let nextColtoCheckUp= currentPosition[1]-1;
-
-
-
-while (nextRowtoCheckUp>=0 && nextColtoCheckUp>=0){
-
-let nextCheckedCellUp= rowstoCheck[nextRowtoCheckUp][nextColtoCheckUp];
-
-let arrayClasslistUp= Array.from(nextCheckedCellUp.classList);
-
-
-    if (arrayClasslistUp.includes(color)){
-        sameColorCells.push(nextCheckedCell)
-        nextColtoCheckUp= nextRowtoCheckUp--;
-        nextColtoCheckUp= nextColtoCheckUp--
-
-    }
-    else {break;}
  
-console.log(sameColorCells);
-  
 }
-  }
-
-
-
 
 function cellRowAndCol(cell){
     let CellColumn= cell.toString().substring(13,14);
@@ -218,8 +161,36 @@ function cellColor(cell){
     let colorClicked= cell.classList;
     return colorClicked;
 }
+function checkDiagonalArrays(array,currentColor){
+let winningCells= [];
+    for (let cases of array)
+    {
+        let caseClasslist= cases.classList;
+        console.log(caseClasslist);
+        let arrayCases= Array.from(caseClasslist);
+        
+        for (let cellToCheck of arrayCases)
+        {
+            if (cellToCheck.includes(currentColor))
+            {
+                winningCells.push(cases);
+            }
+        }
+    }
+    
+    return winningCells
+}
 
-
+  
+function checkForWinner(table,currentColor){
+    for (let number of table){
+        if (number.length>=4){
+            console.log(currentColor);
+         let text=   document.querySelector(".winner");
+         text.innerHTML= currentColor;
+        }
+    }
+}  
 
 setTopRowEventListener();
 cellClickEventListener();
