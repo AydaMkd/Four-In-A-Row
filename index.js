@@ -16,7 +16,6 @@ const column5 = [cells[40], cells[33], cells[26], cells[19], cells[12], cells[5]
 const column6 = [cells[41], cells[34], cells[27], cells[20], cells[13], cells[6], topCells[6]];
 const columns = [column0, column1, column2, column3, column4, column5, column6];
 
-console.log(cells[35]);
 // Rows
 const topRow = [topCells[0], topCells[1], topCells[2], topCells[3], topCells[4], topCells[5], topCells[6]];
 const row0 = [cells[0], cells[1], cells[2], cells[3], cells[4], cells[5], cells[6]];
@@ -30,8 +29,6 @@ const rows = [topRow,row0, row1, row2, row3, row4, row5];
 
 function setTopRowEventListener(){
      
-    
-  
     for (let i =0; i<topCells.length; i++ ){
         topCells[i].addEventListener("mouseover", gridMouseover);
         topCells[i].addEventListener("mouseout", gridMouseout);
@@ -70,6 +67,7 @@ function setTopRowEventListener(){
     
 
 function cellClick(e){
+    
     let cellColRow= clickedCellPosition(e);
 
     let cellCol= cellColRow[0];
@@ -83,26 +81,22 @@ function cellClick(e){
         let cellClass= Array.from(cellClasslist);
         if (!cellClass.includes('yellow') && !cellClass.includes('red'))
 
-       {return cell.classList}
+       {return cell}
     }}
 
   
 
     let cell= cellChoice();
-    cell.add(addColor());
+    cell.classList.add(addColor());
+    
    
-    checkDiagonally(e,cellColRow);
+    checkDiagonally(cell,e,cellColRow);
     
   
        
 
 yellowTurn=!yellowTurn;
-       
-
-
-        
-      
-
+           
         
 }
 
@@ -112,48 +106,98 @@ function dropToken(e){
     let columnNumber= e.target.classList.toString().substring(15,16);
 }
 
-function checkDiagonally(e,cellColRow){
-
-let sameColorCells= [e.target];
-
+function checkDiagonally(cell,e,cellColRow){
+//get the position of current colored cell
+let clickedCell= e.target;
+let cellCickedCol= cellColRow[0];
 let color = addColor();
+let table= 0;
+for (let i= 5; i>=0; i--)
+{
+    let clickedCellCol= columns[cellCickedCol][i];
+    let ColList= clickedCellCol.classList;
+    let arrayCells = Array.from(ColList);
+    for (let j =0; j <= arrayCells.length; j++){
+    let cases= arrayCells[j];
+    if (cases== "yellow" || cases == "red"){
+        table= table+1;
+    }
+    else {table= table};
+    
+    
+    }}
+
+let cellRowNumber= 6-table;
+//let currentCell= columns[cellCickedCol][cellRowNumber];
+
+
+let sameColorCells= [cell];
+
+
 let rowstoCheck= rows.slice(1);
-console.log(rowstoCheck);
+
+// check diagonally for same color cells under the current cell
+let currentPosition= cellRowAndCol(cell.classList);
+console.log(currentPosition);
+console.log(cell);
+let nextRowtoCheckDown= currentPosition[0]+1;
+let nextColtoCheckDown= currentPosition[1]+1;
 
 
-let nextRowtoCheck= cellColRow[1]+1;
-let nextColtoCheck= cellColRow[0]+1;
-console.log(nextColtoCheck);
-console.log(nextRowtoCheck);
+
+while (nextRowtoCheckDown<=5 && nextColtoCheckDown<=6){
+
+let nextCheckedCellDown= rowstoCheck[nextRowtoCheckDown][nextColtoCheckDown];
+console.log(nextCheckedCellDown);
+
+let arrayClasslistDown= Array.from(nextCheckedCellDown.classList);
+console.log(arrayClasslistDown);
 
 
-while (nextRowtoCheck<=5 && nextColtoCheck<=6){
-
-let nextCheckedCell= rowstoCheck[nextRowtoCheck][nextColtoCheck];
-
-let arrayClasslist= Array.from(nextCheckedCell.classList);
-
-
-    if (arrayClasslist.includes(color)){
-        sameColorCells.push(nextCheckedCell)
-        nextColtoCheck= nextRowtoCheck++;
-        nextColtoCheck= nextColtoCheck++
+    if (arrayClasslistDown.includes(color)){
+        sameColorCells.push(nextCheckedCellDown)
+        nextColtoCheckDown= nextRowtoCheckDown++;
+        nextColtoCheckDown= nextColtoCheckDown++
 
     }
  
-  else { break;}
+  else {break;}
+}
+  
+
+
+let nextRowtoCheckUp= currentPosition[0]-1;
+let nextColtoCheckUp= currentPosition[1]-1;
+
+
+
+while (nextRowtoCheckUp>=0 && nextColtoCheckUp>=0){
+
+let nextCheckedCellUp= rowstoCheck[nextRowtoCheckUp][nextColtoCheckUp];
+
+let arrayClasslistUp= Array.from(nextCheckedCellUp.classList);
+
+
+    if (arrayClasslistUp.includes(color)){
+        sameColorCells.push(nextCheckedCell)
+        nextColtoCheckUp= nextRowtoCheckUp--;
+        nextColtoCheckUp= nextColtoCheckUp--
+
+    }
+    else {break;}
+ 
+console.log(sameColorCells);
   
 }
-console.log(sameColorCells);
+  }
 
 
-
-}
 
 
 function cellRowAndCol(cell){
     let CellColumn= cell.toString().substring(13,14);
     let CellRow= cell.toString().substring(8,9);
+   
     
     let parsedRow= parseInt(CellRow, 10);
     let parsedColumn= parseInt(CellColumn, 10);
