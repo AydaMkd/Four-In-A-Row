@@ -1,84 +1,83 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    align-items: center;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    font-family: sans-serif;
-    padding: 25px;
-    width: 100%;
-  }
-  
-  
-  .board {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    height: 700px;
-    margin: 10px 0 25px;
-    width: 700px;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  .cell {
-    align-items: center;
-    background: rgb(0, 153, 255);
-    display: flex;
-    height: 100px;
-    justify-content: center;
-    width: 100px;
-  }
-  
-  .cell::after {
-     background: white;
-     border-radius: 50%;
-     border: 3px solid black;
-     content: '';
-     cursor: pointer;
-     height: 90px;
-     width: 90px;
-   }
+body {
+  align-items: center;
+  background: rgb(170, 206, 221);
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  padding: 25px;
+  width: 100%;
+}
 
 
-   .cell:not(.topRow).red {
-    background:rgb(0, 153, 255);
-  }
-  
-  .cell:not(.topRow).yellow {
-    background: rgb(0, 153, 255);
-  }
+.board {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  height: 700px;
+  margin: 10px 0 25px;
+  width: 700px;
+}
 
-  .cell:not(.topRow).red::after{
-    background: red;
-    
-  }
-  
-  
-  .cell:not(.topRow).yellow::after {
-    background: yellow;
-    
-  }
-  
+.cell {
+  align-items: center;
+  background: rgb(0, 153, 255);
+  display: flex;
+  height: 100px;
+  justify-content: center;
+  width: 100px;
+}
 
-  
-  .cell.topRow {
-    background: white;
-  }  
+.cell::after {
+   background:rgb(170, 206, 221);
+   border-radius: 50%;
+   border: 3px solid black;
+   content: '';
+   cursor: pointer;
+   height: 90px;
+   width: 90px;
+ }
 
-  .cell.topRow::after {
-    border: none;
-  } 
+
+ .cell:not(.topRow).red {
+  background:rgb(130, 170, 207);
+}
+
+.cell:not(.topRow).yellow {
+  background: rgb(130, 170, 207);
+}
+
+.cell:not(.topRow).red::after{
+  background: red;
+  
+}
+
+
+.cell:not(.topRow).yellow::after {
+  background: yellow;
+  
+}
+
+
+
+.cell.topRow {
+  background: rgb(170, 206, 221);
+}  
+
+.cell.topRow::after {
+  border: none;
+} 
 .cell.topRow.yellow::after{
-  background: yellow ;
-  border: 3px solid black;
-  
+background: yellow ;
+border: 3px solid black;
+
 }
 
 .cell.topRow.red::after{
-  background-color: red;
-  border: 3px solid black;
+background-color: red;
+border: 3px solid black;
 }
- 

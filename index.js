@@ -37,6 +37,12 @@ console.log(array1);
 let array3= [row0[6],row1[5], row2[4], row3[3], row4[2],row5[1]];
 let array4= [row1[6], row2[5], row3[4], row4[3], row5[2]];
 let array5= [row2[6], row3[5], row4[4], row5[3]];
+let array6= [row0[1], row1[2], row2[3],row3[4], row4[5], row5[6]];
+let array7= [row0[2], row1[3], row2[4], row3[5], row4[6]];
+let array8= [row0[3], row1[4], row2[5], row3[4]];
+let array9=[row0[5], row1[4], row2[3],row3[2], row4[1], row5[0]];
+let array10= [row0[4], row1[3], row2[2], row3[1], row4[0]];
+let array11=[row0[3], row1[2], row2[1], row1[0]];
 
 
 function setTopRowEventListener(){
@@ -44,7 +50,7 @@ function setTopRowEventListener(){
     for (let i =0; i<topCells.length; i++ ){
         topCells[i].addEventListener("mouseover", gridMouseover);
         topCells[i].addEventListener("mouseout", gridMouseout);
-        topCells[i].addEventListener("click" , dropToken);
+       
     }
 }
  function cellClickEventListener(){  
@@ -104,7 +110,7 @@ function cellClick(e){
     let cell= cellChoice();
     cell.classList.add(addColor());
     
-    checkDiagonally(array0, array1, array2, array3, array4, array5, currentColor);
+    checkDiagonally(array0, array1, array2, array3, array4, array5, array6, array7, array8, array9, array10, array11, currentColor);
     
     
     yellowTurn=!yellowTurn;
@@ -113,13 +119,9 @@ function cellClick(e){
 }
 
 
-function dropToken(e){
-    console.log(e);
-    let columnNumber= e.target.classList.toString().substring(15,16);
-}
 
 
-function checkDiagonally(array0, array1, array2, array3, array4, array5, currentColor){
+function checkDiagonally(array0, array1, array2, array3, array4, array5,array6, array7, array8, array9, array10, array11, currentColor){
     
 let number0=  checkDiagonalArrays(array0,currentColor);
 let number1=  checkDiagonalArrays(array1,currentColor);
@@ -127,9 +129,15 @@ let number2=   checkDiagonalArrays(array2,currentColor);
 let number3=   checkDiagonalArrays(array3,currentColor);
 let number4=   checkDiagonalArrays(array4, currentColor);
 let number5=  checkDiagonalArrays(array5, currentColor);
+let number6=  checkDiagonalArrays(array6,currentColor);
+let number7=  checkDiagonalArrays(array7,currentColor);
+let number8=   checkDiagonalArrays(array8,currentColor);
+let number9=   checkDiagonalArrays(array9,currentColor);
+let number10=   checkDiagonalArrays(array10, currentColor);
+let number11=  checkDiagonalArrays(array11, currentColor);
 
   
-let table= [number0 , number1, number2, number3, number4, number5]   ;
+let table= [number0 , number1, number2, number3, number4, number5,number6 , number7, number8, number9, number10, number11]   ;
 console.log(table);
 
 checkForWinner(table,currentColor);
@@ -185,9 +193,10 @@ let winningCells= [];
 function checkForWinner(table,currentColor){
     for (let number of table){
         if (number.length>=4){
-            console.log(currentColor);
-         let text=   document.querySelector(".winner");
-         text.innerHTML= currentColor;
+        
+         let text=  document.querySelector(".winner");
+         text.innerHTML= currentColor 
+         return table
         }
     }
 }  
