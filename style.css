@@ -24,8 +24,8 @@ h1 {
 }
 
 .winner{
-  position:relative; left: 450px; top: 20px;
-  font-size: 25px;
+  position:relative; left: 500px; top: 80px;
+  font-size: 20px;
 
   font-style: italic;
   color: rgba(0, 0, 255, 0.863);
@@ -109,3 +109,15 @@ border: 3px solid black;
   padding-left: 18.5px;
 
 } 
+
+.restart{
+  background-color: rgb(247, 165, 89);
+
+  font-size: 15px;
+
+  margin-left: 1000px ;
+
+  margin-top: 5px;
+  border-radius: 2px;
+  
+}

@@ -59,9 +59,8 @@ const myBoard = document.querySelector(".board");
 console.log(mySound);
 
 myBoard.addEventListener("click",function(){
-    mySound.play()}
-)
-
+    mySound.play()});
+ 
  function cellClickEventListener(){  
     for (let i=0; i< cells.length; i++)
     {
@@ -121,10 +120,10 @@ function cellClick(e){
     coloredCellclasslist.add(addColor());
     let coloredPosition= (cellRowAndCol(coloredCellclasslist));
     
-    checkDiagonally(array0, array1, array2, array3, array4, array5, array6, array7, array8, array9, array10, array11, currentColor);
+    checkResult (array0, array1, array2, array3, array4, array5, array6, array7, array8, array9, array10, array11, currentColor, rowsTopOut,coloredPosition);
     
-    checkHorisontally(rowsTopOut,coloredPosition,currentColor);
-    checkVertically(coloredPosition,currentColor);
+    
+    
     
     yellowTurn=!yellowTurn;
            
@@ -134,7 +133,7 @@ function cellClick(e){
 
 
 
-function checkDiagonally(array0, array1, array2, array3, array4, array5,array6, array7, array8, array9, array10, array11, currentColor){
+function checkResult(array0, array1, array2, array3, array4, array5,array6, array7, array8, array9, array10, array11, currentColor,rowsTopOut,coloredPosition){
     
 let number0=  checkDiagonalArrays(array0,currentColor);
 let number1=  checkDiagonalArrays(array1,currentColor);
@@ -149,8 +148,13 @@ let number9=   checkDiagonalArrays(array9,currentColor);
 let number10=   checkDiagonalArrays(array10, currentColor);
 let number11=  checkDiagonalArrays(array11, currentColor);
 
+let vertically= checkHorisontally(rowsTopOut,coloredPosition,currentColor);
+
+
+let horisontally= checkVertically(coloredPosition,currentColor);
+
   
-let table= [number0 , number1, number2, number3, number4, number5,number6 , number7, number8, number9, number10, number11]   ;
+let table= [number0 , number1, number2, number3, number4, number5,number6 , number7, number8, number9, number10, number11,vertically,horisontally ]  ;
 console.log(table);
 
 checkForWinner(table,currentColor);
@@ -221,6 +225,24 @@ function checkForWinner(table,currentColor){
              myAudio.play();
              console.log(colorClasslist);
          }
+
+        for (let i= 0 ; i<= table.length; i++)
+        {
+          for (let numbers of cells){
+              let numberClasslist= numbers.classList;
+              let numbersArray= Array.from(numberClasslist);
+
+              if (numbersArray.includes("yellow")|| numbersArray.includes("red")) {
+                  if (table[i<4])
+                  {
+                    let textToPut= 
+                    "           It's a tie!";
+                     let text=  document.querySelector(".winner");
+                     text.innerHTML= textToPut;
+                  }
+              }
+          }
+        }
          return number
         }
     }
@@ -239,7 +261,7 @@ function checkHorisontally(rowsTopOut,coloredPosition,currentColor){
    {let arrayRow= Array.from(row.classList);
     if (arrayRow.includes(currentColor)){
         tableHorisontal.push(row);}}
-  
+  return tableHorisontal;
 }
 
 function checkVertically(coloredPosition,currentColor){
@@ -257,10 +279,21 @@ function checkVertically(coloredPosition,currentColor){
           tableVertical.push(col);}}
 
     console.log(tableVertical);
+    return tableVertical;
     
+
   }
 
+ 
 setTopRowEventListener();
 cellClickEventListener();
 
-
+function renewGame(){
+    for ( let row of rows) {
+      for (let cell of row) {
+        cell.classList.remove('red');
+        cell.classList.remove('yellow');
+        cell.classList.remove('win');
+      }}} 
+      const restart= document.querySelector(".restart");  
+      restart.addEventListener("click", renewGame);     
