@@ -154,10 +154,14 @@ let vertically= checkHorisontally(rowsTopOut,coloredPosition,currentColor);
 let horisontally= checkVertically(coloredPosition,currentColor);
 
   
-let table= [number0 , number1, number2, number3, number4, number5,number6 , number7, number8, number9, number10, number11,vertically,horisontally ]  ;
+let table= [number0 , number1, number2, number3, number4, number5,number6 , number7, number8, number9, number10, number11];
+
 console.log(table);
+ let table1= [vertically, horisontally];
+
 
 checkForWinner(table,currentColor);
+checkForWinner2(table1,currentColor);
 
  
 }
@@ -202,8 +206,23 @@ let winningCells= [];
             }
         }
     }
-    
-    return winningCells
+
+    let storeVar= grabArrayClasslist(array);
+    console.log(storeVar);
+    let counting = 0;
+    for (let store of storeVar)
+    { 
+        if (store.includes(currentColor))
+        {
+          counting = counting+1;
+        }
+
+        else {
+            counting =0
+        }
+    }
+    console.log(counting);
+    return [winningCells, counting];
 }
 
   
@@ -211,6 +230,105 @@ function checkForWinner(table,currentColor){
 
 
     for (let number of table){
+        console.log(number);
+        if (number[0].length>=4 && number[1]>=4){
+        let textToPut= currentColor+ 
+        "           has won!";
+         let text=  document.querySelector(".winner");
+         text.innerHTML= textToPut;
+         for (let colors of number[0]){
+             let colorClasslist= colors.classList;
+             console.log(colorClasslist);
+             colorClasslist.add("win");
+             var myAudio = new Audio('victoryff.swf.mp3');
+             myAudio.play();
+             console.log(colorClasslist);
+         }
+
+        for (let i= 0 ; i<= table[0].length; i++)
+        {let checkValue= [];
+        
+          for (let numbers of cells){
+              let numberClasslist= numbers.classList;
+              let numbersArray= Array.from(numberClasslist);
+
+              if (numbersArray.includes("yellow")|| numbersArray.includes("red")) {
+                  if (table[0][i]<4)
+                  {
+                    checkValue.push(0);
+                  }
+                else {
+                    checkValue.push(1)
+                }  
+              if (!checkValue.includes(1))
+              {
+                let textToPut=
+                "           It's a tie!";
+                 let text=  document.querySelector(".winner");
+                 text.innerHTML= textToPut;
+              }
+              }}}
+          
+         return number
+        }
+    }
+}  
+
+
+function checkHorisontally(rowsTopOut,coloredPosition,currentColor){
+    
+    let tableHorisontal=[];
+      let cellToCheckCol= coloredPosition[0];
+      let cellToCheckRow= coloredPosition[1];
+      let rowToCheck= rowsTopOut[cellToCheckRow];
+      console.log(rowToCheck);
+      
+     for (let row of rowToCheck)
+  
+     {let arrayRow= Array.from(row.classList);
+      if (arrayRow.includes(currentColor)){
+          tableHorisontal.push(row);}}
+    return tableHorisontal;
+  }
+function checkVertically(coloredPosition,currentColor){
+    
+    let tableVertical=[];
+      let cellToCheckCol= coloredPosition[0];
+      let cellToCheckRow= coloredPosition[1];
+      let colToCheck= columns[cellToCheckCol];
+      
+      
+     for (let col of colToCheck)
+  
+     {let arrayCol= Array.from(col.classList);
+      if (arrayCol.includes(currentColor)){
+          tableVertical.push(col);}
+
+    console.log(tableVertical);}
+
+    return tableVertical;
+    
+
+  }
+function grabArrayClasslist(valueArray){
+
+    let arrayValue= []
+    for (let value  of valueArray)
+    {
+        let classlistValue= value.classList;
+        arrayFromValue= Array.from(classlistValue);
+        arrayValue.push(arrayFromValue);
+
+    }
+
+    return arrayValue
+}
+
+
+function checkForWinner2(table1,currentColor){
+
+
+    for (let number of table1){
         console.log(number);
         if (number.length>=4){
         let textToPut= currentColor+ 
@@ -226,64 +344,33 @@ function checkForWinner(table,currentColor){
              console.log(colorClasslist);
          }
 
-        for (let i= 0 ; i<= table.length; i++)
-        {
-          for (let numbers of cells){
-              let numberClasslist= numbers.classList;
-              let numbersArray= Array.from(numberClasslist);
-
-              if (numbersArray.includes("yellow")|| numbersArray.includes("red")) {
-                  if (table[i<4])
-                  {
-                    let textToPut= 
-                    "           It's a tie!";
-                     let text=  document.querySelector(".winner");
-                     text.innerHTML= textToPut;
-                  }
-              }
-          }
-        }
+         for (let i= 0 ; i<= table1.length; i++){
+         let checkValue= [];
+         
+           for (let numbers of cells){
+               let numberClasslist= numbers.classList;
+               let numbersArray= Array.from(numberClasslist);
+ 
+               if (numbersArray.includes("yellow")|| numbersArray.includes("red")) {
+                   if (table1[i]<4)
+                   {
+                     checkValue.push(0);
+                   }
+                 else {
+                     checkValue.push(1)
+                 }  
+               if (!checkValue.includes(1))
+               {
+                 let textToPut=
+                 "           It's a tie!";
+                  let text=  document.querySelector(".winner");
+                  text.innerHTML= textToPut;
+               }
+               }}}
          return number
         }
     }
 }  
-
-function checkHorisontally(rowsTopOut,coloredPosition,currentColor){
-    
-  let tableHorisontal=[];
-    let cellToCheckCol= coloredPosition[0];
-    let cellToCheckRow= coloredPosition[1];
-    let rowToCheck= rowsTopOut[cellToCheckRow];
-    console.log(rowToCheck);
-    
-   for (let row of rowToCheck)
-
-   {let arrayRow= Array.from(row.classList);
-    if (arrayRow.includes(currentColor)){
-        tableHorisontal.push(row);}}
-  return tableHorisontal;
-}
-
-function checkVertically(coloredPosition,currentColor){
-    
-    let tableVertical=[];
-      let cellToCheckCol= coloredPosition[0];
-      let cellToCheckRow= coloredPosition[1];
-      let colToCheck= columns[cellToCheckCol];
-      
-      
-     for (let col of colToCheck)
-  
-     {let arrayCol= Array.from(col.classList);
-      if (arrayCol.includes(currentColor)){
-          tableVertical.push(col);}}
-
-    console.log(tableVertical);
-    return tableVertical;
-    
-
-  }
-
  
 setTopRowEventListener();
 cellClickEventListener();
