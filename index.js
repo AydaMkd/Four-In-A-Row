@@ -53,6 +53,15 @@ function setTopRowEventListener(){
        
     }
 }
+
+const mySound = document.getElementById("sound");   
+const myBoard = document.querySelector(".board");
+console.log(mySound);
+
+myBoard.addEventListener("click",function(){
+    mySound.play()}
+)
+
  function cellClickEventListener(){  
     for (let i=0; i< cells.length; i++)
     {
