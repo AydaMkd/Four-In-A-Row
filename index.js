@@ -201,11 +201,21 @@ let winningCells= [];
   
 function checkForWinner(table,currentColor){
     for (let number of table){
+        console.log(number);
         if (number.length>=4){
-        
+        let textToPut= currentColor+ 
+        "           has won!";
          let text=  document.querySelector(".winner");
-         text.innerHTML= currentColor 
-         return table
+         text.innerHTML= textToPut;
+         for (let colors of number){
+             let colorClasslist= colors.classList;
+             console.log(colorClasslist);
+             colorClasslist.add("win");
+             var myAudio = new Audio('victoryff.swf.mp3');
+             myAudio.play();
+             console.log(colorClasslist);
+         }
+         return number
         }
     }
 }  

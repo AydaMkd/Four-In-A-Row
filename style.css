@@ -14,7 +14,7 @@ body {
   width: 100%;
 }
 h1 {
-  position:relative; right: 550px; top: 400px;
+  position:relative; right: 550px; top: 450px;
   font-size: 50px;
 
   margin-top: 100px;
@@ -22,6 +22,16 @@ h1 {
   color:blue;
   
 }
+
+.winner{
+  position:relative; right: 550px; top: 500px;
+  font-size: 20px;
+
+  margin-top: 100px;
+  font-style: italic;
+  color: goldenrod;
+}
+
 
 
 .board {
@@ -71,8 +81,6 @@ h1 {
   
 }
 
-
-
 .cell.topRow {
   background:rgba(240, 215, 187, 0.815);
 }  
@@ -90,3 +98,14 @@ border: 3px solid black;
 background-color: red;
 border: 3px solid black;
 }
+.cell.win::after{
+  content: "winner";
+  font-size: 20px;
+  color: green;
+  font-style: italic;
+  font-weight: bolder;
+  text-align: justify;
+  padding-top: 50px;
+  padding-left: 18.5px;
+
+} 
