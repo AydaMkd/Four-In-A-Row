@@ -117,10 +117,14 @@ function cellClick(e){
   
 
     let cell= cellChoice();
-    cell.classList.add(addColor());
+    let coloredCellclasslist= cell.classList;
+    coloredCellclasslist.add(addColor());
+    let coloredPosition= (cellRowAndCol(coloredCellclasslist));
     
     checkDiagonally(array0, array1, array2, array3, array4, array5, array6, array7, array8, array9, array10, array11, currentColor);
     
+    checkHorisontally(rowsTopOut,coloredPosition,currentColor);
+    checkVertically(coloredPosition,currentColor);
     
     yellowTurn=!yellowTurn;
            
@@ -200,6 +204,8 @@ let winningCells= [];
 
   
 function checkForWinner(table,currentColor){
+
+
     for (let number of table){
         console.log(number);
         if (number.length>=4){
@@ -219,6 +225,40 @@ function checkForWinner(table,currentColor){
         }
     }
 }  
+
+function checkHorisontally(rowsTopOut,coloredPosition,currentColor){
+    
+  let tableHorisontal=[];
+    let cellToCheckCol= coloredPosition[0];
+    let cellToCheckRow= coloredPosition[1];
+    let rowToCheck= rowsTopOut[cellToCheckRow];
+    console.log(rowToCheck);
+    
+   for (let row of rowToCheck)
+
+   {let arrayRow= Array.from(row.classList);
+    if (arrayRow.includes(currentColor)){
+        tableHorisontal.push(row);}}
+  
+}
+
+function checkVertically(coloredPosition,currentColor){
+    
+    let tableVertical=[];
+      let cellToCheckCol= coloredPosition[0];
+      let cellToCheckRow= coloredPosition[1];
+      let colToCheck= columns[cellToCheckCol];
+      
+      
+     for (let col of colToCheck)
+  
+     {let arrayCol= Array.from(col.classList);
+      if (arrayCol.includes(currentColor)){
+          tableVertical.push(col);}}
+
+    console.log(tableVertical);
+    
+  }
 
 setTopRowEventListener();
 cellClickEventListener();
