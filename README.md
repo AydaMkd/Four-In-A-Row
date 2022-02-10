@@ -6,11 +6,11 @@ The way it works, if you move the mouse over the top of the grid, colors will po
 
 Grid cells will get colored from bottom to top based on the column of the clicked cell, to fit the principle of the game. 
 
-This code checks for winners, who get to match four cells of the same color, whether vertically or horizontally or diagonally. 
+This code checks for winners, who get to match four cells of the same color, whether vertically or horizontally or diagonally. (I ran into issues having it run vertically and horisontally in the end as I was trying to fix some issue but the code for that is in my index.js file still).
 
 Whoever matches four cells of the corresponding color first wins!
 
-The game also checks for a tie, but I don't think this is the best way yet because it checks for a tie when all cells are colored and there's no winner, but I know in most cases the game leads to a tie before all cells are colored. This is one more thing to work on! 
+The game also checks for a tie,( I wrote the code but for now time wasn't enough to try it) plus I don't think this is the best way yet because it checks for a tie when all cells are colored and there's no winner, but I know in most cases the game leads to a tie before all cells are colored. This is one more thing to work on! 
 
 As far as grid template, using divs and classes to distinguish rows and columns was the clearest way for me to display the grid and access the cells later in javascript. 
 
