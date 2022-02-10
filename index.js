@@ -272,7 +272,7 @@ function checkForWinner(table,currentColor){
               let numbersArray= Array.from(numberClasslist);
 
               if (numbersArray.includes("yellow")|| numbersArray.includes("red")) {
-                  if (table[0][i]<4)
+                  if (table[1][i]<4)
                   {
                     checkValue.push(0);
                   }
