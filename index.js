@@ -90,7 +90,6 @@ myBoard.addEventListener("click",function(){
     e.target.classList.add(addColor());
 
     }
-    
 
 function cellClick(e){
   
@@ -159,26 +158,16 @@ let number9=   checkDiagonalArrays(array9,currentColor);
 let number10=   checkDiagonalArrays(array10, currentColor);
 let number11=  checkDiagonalArrays(array11, currentColor);
 
-
-
 let horisontally= checkDiagonalArrays(rowToCheck, currentColor);
-
 console.log(horisontally);
-
 
 let vertically= checkDiagonalArrays(colToCheck, currentColor);
 console.log(vertically);
-
-
-
-
   
 let table= [number0 , number1, number2, number3, number4, number5,number6 , number7, number8, number9, number10, number11, horisontally, vertically];
 
 console.log(table);
  
-
-
 checkForWinner(table,currentColor);
 
 
@@ -265,29 +254,24 @@ function checkForWinner(table,currentColor){
          }
 
         
-        
           for (let numbers of cells){
+              let colorArray=[];
+              let counting1= 0;
               let numberClasslist= numbers.classList;
               let numbersArray= Array.from(numberClasslist);
-              for (let i= 0 ; i<= table[0].length; i++)
-        {let checkValue= [];
+            
 
-              if (numbersArray.includes("yellow")|| numbersArray.includes("red")) {
-                  if (table[1][i]<4)
-                  {
-                    checkValue.push(0);
-                  }
-                else {
-                    checkValue.push(1)
-                }  
-              if (!checkValue.includes(1))
-              {
+            if (numbersArray.includes("yellow")|| numbersArray.includes("red")) {
+                  colorArray.push(number);}}
+            if (colorArray=cells.length && table== [0,0] )
+            {
+                
                 let textToPut=
                 "           It's a tie!";
                  let text=  document.querySelector(".winner");
                  text.innerHTML= textToPut;
               }
-              }}}
+              
           
          return number
         }
@@ -308,7 +292,6 @@ function grabArrayClasslist(valueArray){
 
     return arrayValue
 }
- 
 setTopRowEventListener();
 cellClickEventListener();
 
@@ -318,6 +301,11 @@ function renewGame(){
         cell.classList.remove('red');
         cell.classList.remove('yellow');
         cell.classList.remove('win');
-      }}} 
+        
+      }}
+      let text1=  document.querySelector(".winner");
+                 text1.innerHTML= null;
+              
+     } 
       const restart= document.querySelector(".restart");  
       restart.addEventListener("click", renewGame); 
