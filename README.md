@@ -24,3 +24,4 @@ I believe this is a long term project, it still needs a lot of improvements to m
 
 Here's the github deployed link for the game as it's for now:
 
+https://aydamkd.github.io/Four-In-A-Row/
