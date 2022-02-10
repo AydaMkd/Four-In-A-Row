@@ -3,6 +3,7 @@ const topCells = document.querySelectorAll('.cell.topRow');
 let turn1 = "yellow";
 let turn2= "red";
 let yellowTurn = true; 
+let winning= false;
 
 
 //Columns
@@ -122,10 +123,7 @@ function cellClick(e){
     
     
     checkResult (array0, array1, array2, array3, array4, array5, array6, array7, array8, array9, array10, array11, currentColor,rowsTopOut,coloredPosition);
-    
-    
-    
-    
+
     yellowTurn=!yellowTurn;
            
         
@@ -233,7 +231,6 @@ let winningCells= [];
     return [winningCells, counting];
 }
 
-  
 function checkForWinner(table,currentColor){
 
 
@@ -250,33 +247,32 @@ function checkForWinner(table,currentColor){
              colorClasslist.add("win");
              var myAudio = new Audio('victoryff.swf.mp3');
              myAudio.play();
-             console.log(colorClasslist);
-         }
-
-        
-          for (let numbers of cells){
-              let colorArray=[];
-              let counting1= 0;
-              let numberClasslist= numbers.classList;
-              let numbersArray= Array.from(numberClasslist);
-            
-
-            if (numbersArray.includes("yellow")|| numbersArray.includes("red")) {
-                  colorArray.push(number);}}
-            if (colorArray=cells.length && table== [0,0] )
-            {
-                
-                let textToPut=
-                "           It's a tie!";
-                 let text=  document.querySelector(".winner");
-                 text.innerHTML= textToPut;
-              }
-              
-          
-         return number
+             console.log(colorClasslist); } 
         }
     }
-} 
+     }
+
+
+ function checkforTie(){
+
+    let tieArray= [];
+
+    let text=  document.querySelector(".winner");
+
+    for (let pos of cells){
+        if (Array.from(pos.classList).includes(turn1)||Array.from(pos.classList).includes(turn2))
+    {
+        tieArray.push(pos);
+    }
+
+ }
+ if (text.innerHTML= null && tieArray.length== cells.length){
+     text.innerHTML= "it's a tie!"
+ }
+}
+
+       
+ 
 
 
 function grabArrayClasslist(valueArray){
@@ -292,6 +288,8 @@ function grabArrayClasslist(valueArray){
 
     return arrayValue
 }
+
+
 setTopRowEventListener();
 cellClickEventListener();
 
@@ -309,3 +307,5 @@ function renewGame(){
      } 
       const restart= document.querySelector(".restart");  
       restart.addEventListener("click", renewGame); 
+
+   
