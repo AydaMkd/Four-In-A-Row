@@ -93,6 +93,7 @@ myBoard.addEventListener("click",function(){
     
 
 function cellClick(e){
+  
     
     let cellColRow= clickedCellPosition(e);
     let currentColor= addColor();
@@ -120,7 +121,8 @@ function cellClick(e){
     coloredCellclasslist.add(addColor());
     let coloredPosition= (cellRowAndCol(coloredCellclasslist));
     
-    checkResult (array0, array1, array2, array3, array4, array5, array6, array7, array8, array9, array10, array11, currentColor, rowsTopOut,coloredPosition);
+    
+    checkResult (array0, array1, array2, array3, array4, array5, array6, array7, array8, array9, array10, array11, currentColor,rowsTopOut,coloredPosition);
     
     
     
@@ -134,6 +136,15 @@ function cellClick(e){
 
 
 function checkResult(array0, array1, array2, array3, array4, array5,array6, array7, array8, array9, array10, array11, currentColor,rowsTopOut,coloredPosition){
+
+  
+    let cellToCheckCol= coloredPosition[0];
+    let cellToCheckRow= coloredPosition[1];
+    let rowToCheck= rowsTopOut[cellToCheckRow];
+    
+    let colToCheck= columns[cellToCheckCol];  
+    console.log(rowToCheck);
+      
     
 let number0=  checkDiagonalArrays(array0,currentColor);
 let number1=  checkDiagonalArrays(array1,currentColor);
@@ -148,20 +159,28 @@ let number9=   checkDiagonalArrays(array9,currentColor);
 let number10=   checkDiagonalArrays(array10, currentColor);
 let number11=  checkDiagonalArrays(array11, currentColor);
 
-let vertically= checkHorisontally(rowsTopOut,coloredPosition,currentColor);
 
 
-let horisontally= checkVertically(coloredPosition,currentColor);
+let horisontally= checkDiagonalArrays(rowToCheck, currentColor);
+
+console.log(horisontally);
+
+
+let vertically= checkDiagonalArrays(colToCheck, currentColor);
+console.log(vertically);
+
+
+
 
   
-let table= [number0 , number1, number2, number3, number4, number5,number6 , number7, number8, number9, number10, number11];
+let table= [number0 , number1, number2, number3, number4, number5,number6 , number7, number8, number9, number10, number11, horisontally, vertically];
 
 console.log(table);
- let table1= [vertically, horisontally];
+ 
 
 
 checkForWinner(table,currentColor);
-checkForWinner2(table1,currentColor);
+
 
  
 }
@@ -272,44 +291,9 @@ function checkForWinner(table,currentColor){
          return number
         }
     }
-}  
+} 
 
 
-function checkHorisontally(rowsTopOut,coloredPosition,currentColor){
-    
-    let tableHorisontal=[];
-      let cellToCheckCol= coloredPosition[0];
-      let cellToCheckRow= coloredPosition[1];
-      let rowToCheck= rowsTopOut[cellToCheckRow];
-      console.log(rowToCheck);
-      
-     for (let row of rowToCheck)
-  
-     {let arrayRow= Array.from(row.classList);
-      if (arrayRow.includes(currentColor)){
-          tableHorisontal.push(row);}}
-    return tableHorisontal;
-  }
-function checkVertically(coloredPosition,currentColor){
-    
-    let tableVertical=[];
-      let cellToCheckCol= coloredPosition[0];
-      let cellToCheckRow= coloredPosition[1];
-      let colToCheck= columns[cellToCheckCol];
-      
-      
-     for (let col of colToCheck)
-  
-     {let arrayCol= Array.from(col.classList);
-      if (arrayCol.includes(currentColor)){
-          tableVertical.push(col);}
-
-    console.log(tableVertical);}
-
-    return tableVertical;
-    
-
-  }
 function grabArrayClasslist(valueArray){
 
     let arrayValue= []
@@ -323,54 +307,6 @@ function grabArrayClasslist(valueArray){
 
     return arrayValue
 }
-
-
-function checkForWinner2(table1,currentColor){
-
-
-    for (let number of table1){
-        console.log(number);
-        if (number.length>=4){
-        let textToPut= currentColor+ 
-        "           has won!";
-         let text=  document.querySelector(".winner");
-         text.innerHTML= textToPut;
-         for (let colors of number){
-             let colorClasslist= colors.classList;
-             console.log(colorClasslist);
-             colorClasslist.add("win");
-             var myAudio = new Audio('victoryff.swf.mp3');
-             myAudio.play();
-             console.log(colorClasslist);
-         }
-
-         for (let i= 0 ; i<= table1.length; i++){
-         let checkValue= [];
-         
-           for (let numbers of cells){
-               let numberClasslist= numbers.classList;
-               let numbersArray= Array.from(numberClasslist);
- 
-               if (numbersArray.includes("yellow")|| numbersArray.includes("red")) {
-                   if (table1[i]<4)
-                   {
-                     checkValue.push(0);
-                   }
-                 else {
-                     checkValue.push(1)
-                 }  
-               if (!checkValue.includes(1))
-               {
-                 let textToPut=
-                 "           It's a tie!";
-                  let text=  document.querySelector(".winner");
-                  text.innerHTML= textToPut;
-               }
-               }}}
-         return number
-        }
-    }
-}  
  
 setTopRowEventListener();
 cellClickEventListener();
