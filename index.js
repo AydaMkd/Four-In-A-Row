@@ -305,7 +305,7 @@ function renewGame(){
                  text1.innerHTML= null;
               
      } 
-      const restart= document.querySelector(".restart");  
+      const restart= document.querySelector(".reload");  
       restart.addEventListener("click", renewGame); 
 
    
