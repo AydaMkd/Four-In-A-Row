@@ -264,12 +264,13 @@ function checkForWinner(table,currentColor){
              console.log(colorClasslist);
          }
 
-        for (let i= 0 ; i<= table[0].length; i++)
-        {let checkValue= [];
+        
         
           for (let numbers of cells){
               let numberClasslist= numbers.classList;
               let numbersArray= Array.from(numberClasslist);
+              for (let i= 0 ; i<= table[0].length; i++)
+        {let checkValue= [];
 
               if (numbersArray.includes("yellow")|| numbersArray.includes("red")) {
                   if (table[1][i]<4)
@@ -319,4 +320,4 @@ function renewGame(){
         cell.classList.remove('win');
       }}} 
       const restart= document.querySelector(".restart");  
-      restart.addEventListener("click", renewGame);     
+      restart.addEventListener("click", renewGame); 
