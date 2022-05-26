@@ -3,6 +3,7 @@ const topCells = document.querySelectorAll('.cell.topRow');
 let turn1 = "yellow";
 let turn2= "red";
 let yellowTurn = true; 
+let gameIsLive = true;
 
 
 
@@ -108,6 +109,7 @@ function cellClick(e){
     for (let cell of topRowOut){
         let cellClasslist= cell.classList;
         let cellClass= Array.from(cellClasslist);
+        console.log(cellClass)
         if (!cellClass.includes('yellow') && !cellClass.includes('red'))
 
        {return cell}
@@ -122,21 +124,13 @@ function cellClick(e){
     let coloredPosition= (cellRowAndCol(coloredCellclasslist));
     console.log(coloredPosition);
     
-    
-    checkResult (array0, array1, array2, array3, array4, array5, array6, array7, array8, array9, array10, array11, currentColor, coloredPosition, rowsTopOut);
+   
+    // checkResult (array0, array1, array2, array3, array4, array5, array6, array7, array8, array9, array10, array11, currentColor, coloredPosition, rowsTopOut);
+    checkHorisontally(coloredPosition,rowsTopOut, currentColor);
 
-    checkforHorisontalWinner(coloredPosition,rowsTopOut, currentColor);
-    
-    yellowTurn=!yellowTurn;
-    
-
-    
-    
-           
+    // yellowTurn=!yellowTurn           
         
 }
-
-
 
 
 function checkResult(array0, array1, array2, array3, array4, array5,array6, array7, array8, array9, array10, array11, currentColor, coloredPosition, rowsTopOut){
@@ -300,6 +294,7 @@ function grabArrayClasslist(valueArray){
 setTopRowEventListener();
 cellClickEventListener();
 
+
 function renewGame(){
     for ( let row of rows) {
       for (let cell of row) {
@@ -315,87 +310,56 @@ function renewGame(){
       const restart= document.querySelector(".reload");  
       restart.addEventListener("click", renewGame); 
 
-function checkHorisontally(coloredPosition,rowsTopOut, currentColor){
-    
-    let cellToCheckCol= coloredPosition[0];
-    let cellToCheckRow= coloredPosition[1];
-    let rowToCheck= rowsTopOut[cellToCheckRow];
-    let number= sliceNum();
-    
-    function sliceNum (){
-    let numberSlice= cellToCheckCol 
-    if (cellToCheckCol>=3){
-         numberSlice= numberSlice -3}
-    else { numberSlice=0} 
-      
-    return numberSlice
-    }
-    
-    console.log(number);
-    let newArrayright= rowToCheck.slice(cellToCheckCol, cellToCheckCol+4);
-    let newArrayleft= rowToCheck.slice(number, cellToCheckCol + 1); 
-    console.log(newArrayright);
-    console.log(newArrayleft);
-    let horisontalWinningRight= [];
-    let horisontalWinningLeft=[];
-    
-    
+const checkWinningCells = (cells, currentColor) => {
+        if (cells.length < 4)
+         return false;
+      else if (cells.length=4)
+        for (const cell of cells) {
+          cell.classList.add('win');
+        }
 
-    for ( let leftcells of newArrayleft){
-        
-        console.log(leftcells);
-        let arrayLeft= leftcells.classList;
-        let arrayLeftclassList= Array.from(arrayLeft);
-        if ( arrayLeftclassList.includes(currentColor)){
-          horisontalWinningLeft.push(leftcells)}};
-          
-    for ( let rightcells of newArrayright){
-         console.log(rightcells);
-         let arrayRight= rightcells.classList;
-        let arrayRightclassList= Array.from(arrayRight);
-        if ( arrayRightclassList.includes(currentColor)){
-         horisontalWinningRight.push(rightcells)}};
-   
-          console.log(horisontalWinningLeft);
-          console.log(horisontalWinningRight)
-          let returnval= [horisontalWinningLeft, horisontalWinningRight];
-          return returnval;
-            
-}
-
-function checkforHorisontalWinner(coloredPosition,rowsTopOut, currentColor){
-    let checkForHorisontal= checkHorisontally(coloredPosition,rowsTopOut, currentColor);
-    console.log (checkForHorisontal);
-    for (let check of checkForHorisontal){
-        console.log(check);
-        if (check.length>=4){
         let textToPut= currentColor+ 
         "           has won!";
          let text=  document.querySelector(".winner");
          text.innerHTML= textToPut;
-         game= !game;
-         for (let colors of check){
-             let colorClasslist= colors.classList;
-             console.log(colorClasslist);
-             colorClasslist.add("win");
-             var myAudio = new Audio('victoryff.swf.mp3');
-             myAudio.play();
-             console.log(colorClasslist); } 
-        }
+
+         var myAudio = new Audio('victoryff.swf.mp3');
+         myAudio.play();
+       
+        return true;
+      };
+function checkHorisontally(coloredPosition,rowsTopOut, currentColor){
+    yellowTurn=!yellowTurn
+    console.log(coloredPosition)
+    let cellToCheckCol= coloredPosition[0];
+    let cellToCheckRow= coloredPosition[1];
+    let cellToadd= rowsTopOut[cellToCheckRow][cellToCheckCol]
+    console.log(cellToadd);
+    let winningCells = [cellToadd];
+    let rowToCheck= rowsTopOut[cellToCheckRow][cellToCheckCol];
+    console.log(rowToCheck);
+   for ( let i =cellToCheckCol-1; i>=0; i--) {
+       
+        let cellToCheck = rowsTopOut[cellToCheckRow][i];
+        let getColorOfCellArray= Array.from(cellToCheck.classList)
+        console.log(getColorOfCellArray);
+        let getColorOfCell= getColorOfCellArray[3]
+        console.log(getColorOfCell);
+        if (getColorOfCell === currentColor) {
+          winningCells.push(cellToCheck);  
+          console.log(winningCells)
+      }
+     
     }
-    
+    let isWinningCombo = checkWinningCells(winningCells);
+    if (isWinningCombo) return;
+  
+   
      }
 
 
            
         
-
-        
-     
-
-    
-
-
 
 
 
