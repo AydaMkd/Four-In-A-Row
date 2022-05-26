@@ -125,7 +125,7 @@ function cellClick(e){
     console.log(coloredPosition);
     
    
-    // checkResult (array0, array1, array2, array3, array4, array5, array6, array7, array8, array9, array10, array11, currentColor, coloredPosition, rowsTopOut);
+    checkResult (array0, array1, array2, array3, array4, array5, array6, array7, array8, array9, array10, array11, currentColor, coloredPosition, rowsTopOut);
     checkForWinning(coloredPosition,rowsTopOut, currentColor);
 
     // yellowTurn=!yellowTurn           
@@ -237,7 +237,7 @@ function checkForWinner(table,currentColor){
         "           has won!";
          let text=  document.querySelector(".winner");
          text.innerHTML= textToPut;
-         game= !game;
+        //  game= !game;
          for (let colors of number[0]){
              let colorClasslist= colors.classList;
              console.log(colorClasslist);
@@ -313,7 +313,7 @@ function renewGame(){
 const checkWinningCells = (cells, currentColor) => {
         if (cells.length < 4)
          return false;
-      else if (cells.length=4)
+     
         for (const cell of cells) {
           cell.classList.add('win');
         }
@@ -339,7 +339,7 @@ function checkForWinning(coloredPosition,rowsTopOut, currentColor){
     let winningCells = [cellToadd];
     let rowToCheck= rowsTopOut[cellToCheckRow][cellToCheckCol];
     console.log(rowToCheck);
-   for ( let i =cellToCheckCol-1; i>=0; i--) {
+   for ( let i =cellToCheckCol-1; i>=0 && i>=cellToCheckCol-4; i--) {
        
         let cellToCheck = rowsTopOut[cellToCheckRow][i];
         let getColorOfCellArray= Array.from(cellToCheck.classList)
@@ -349,9 +349,10 @@ function checkForWinning(coloredPosition,rowsTopOut, currentColor){
         if (getColorOfCell === currentColor) {
           winningCells.push(cellToCheck);  
           console.log(winningCells)
+          
       } 
     }
-   for ( let i =cellToCheckCol+1; i<=6; i++) {
+   for ( let i =cellToCheckCol+1; i<=6 && i<=cellToCheckCol+4; i++) {
         let cellToCheck = rowsTopOut[cellToCheckRow][i];
         let getColorOfCellArray= Array.from(cellToCheck.classList)
         console.log(getColorOfCellArray);
@@ -360,10 +361,11 @@ function checkForWinning(coloredPosition,rowsTopOut, currentColor){
         if (getColorOfCell === currentColor) {
           winningCells.push(cellToCheck);  
           console.log(winningCells)
+          
       }
     }
-    let isWinning1 = checkWinningCells(winningCells);
-    if (isWinning1) return;
+    let isWinning = checkWinningCells(winningCells, currentColor);
+    if (isWinning) return;
   }
 
   function checkVertically(coloredPosition,rowsTopOut, currentColor){
@@ -399,11 +401,13 @@ function checkForWinning(coloredPosition,rowsTopOut, currentColor){
           console.log(winningCells)
       }
     }
-    let isWinning1 = checkWinningCells(winningCells);
+    let isWinning1 = checkWinningCells(winningCells,currentColor);
     if (isWinning1) return;
   }
 
-
+//   function checkHorisontally(){
+   
+//   }
   checkHorisontally(coloredPosition,rowsTopOut, currentColor);
   checkVertically(coloredPosition,rowsTopOut, currentColor)
   }
