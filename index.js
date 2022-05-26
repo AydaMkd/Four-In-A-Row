@@ -119,14 +119,14 @@ function cellClick(e){
 
     let cell= cellChoice();
     let coloredCellclasslist= cell.classList;
-    if (game= true)
+    // if (game= true)
     {coloredCellclasslist.add(addColor())};
     let coloredPosition= (cellRowAndCol(coloredCellclasslist));
     console.log(coloredPosition);
     
    
     // checkResult (array0, array1, array2, array3, array4, array5, array6, array7, array8, array9, array10, array11, currentColor, coloredPosition, rowsTopOut);
-    checkHorisontally(coloredPosition,rowsTopOut, currentColor);
+    checkForWinning(coloredPosition,rowsTopOut, currentColor);
 
     // yellowTurn=!yellowTurn           
         
@@ -328,9 +328,10 @@ const checkWinningCells = (cells, currentColor) => {
        
         return true;
       };
-function checkHorisontally(coloredPosition,rowsTopOut, currentColor){
+function checkForWinning(coloredPosition,rowsTopOut, currentColor){
     yellowTurn=!yellowTurn
-    console.log(coloredPosition)
+    // console.log(coloredPosition)
+    function checkHorisontally(coloredPosition,rowsTopOut, currentColor){
     let cellToCheckCol= coloredPosition[0];
     let cellToCheckRow= coloredPosition[1];
     let cellToadd= rowsTopOut[cellToCheckRow][cellToCheckCol]
@@ -348,14 +349,65 @@ function checkHorisontally(coloredPosition,rowsTopOut, currentColor){
         if (getColorOfCell === currentColor) {
           winningCells.push(cellToCheck);  
           console.log(winningCells)
-      }
-     
+      } 
     }
-    let isWinningCombo = checkWinningCells(winningCells);
-    if (isWinningCombo) return;
-  
-   
-     }
+   for ( let i =cellToCheckCol+1; i<=6; i++) {
+        let cellToCheck = rowsTopOut[cellToCheckRow][i];
+        let getColorOfCellArray= Array.from(cellToCheck.classList)
+        console.log(getColorOfCellArray);
+        let getColorOfCell= getColorOfCellArray[3]
+        console.log(getColorOfCell);
+        if (getColorOfCell === currentColor) {
+          winningCells.push(cellToCheck);  
+          console.log(winningCells)
+      }
+    }
+    let isWinning1 = checkWinningCells(winningCells);
+    if (isWinning1) return;
+  }
+
+  function checkVertically(coloredPosition,rowsTopOut, currentColor){
+    let cellToCheckCol= coloredPosition[0];
+    console.log(cellToCheckCol)
+    let cellToCheckRow= coloredPosition[1];
+    let cellToadd= rowsTopOut[cellToCheckRow][cellToCheckCol]
+    console.log(cellToadd);
+    let winningCells = [cellToadd];
+    // let rowToCheck= rowsTopOut[cellToCheckRow][cellToCheckCol];
+    // console.log(rowToCheck);
+   for ( let i =cellToCheckRow-1; i>=0; i--) {
+       
+        let cellToCheck = rowsTopOut[i][cellToCheckCol];
+        console.log(cellToCheck);
+        let getColorOfCellArray= Array.from(cellToCheck.classList)
+        console.log(getColorOfCellArray);
+        let getColorOfCell= getColorOfCellArray[3]
+        console.log(getColorOfCell);
+        if (getColorOfCell === currentColor) {
+          winningCells.push(cellToCheck);  
+          console.log(winningCells)
+      } 
+    }
+   for ( let i =cellToCheckRow+1; i<=5; i++) {
+        let cellToCheck = rowsTopOut[i][cellToCheckCol];
+        let getColorOfCellArray= Array.from(cellToCheck.classList)
+        console.log(getColorOfCellArray);
+        let getColorOfCell= getColorOfCellArray[3]
+        console.log(getColorOfCell);
+        if (getColorOfCell === currentColor) {
+          winningCells.push(cellToCheck);  
+          console.log(winningCells)
+      }
+    }
+    let isWinning1 = checkWinningCells(winningCells);
+    if (isWinning1) return;
+  }
+
+
+  checkHorisontally(coloredPosition,rowsTopOut, currentColor);
+  checkVertically(coloredPosition,rowsTopOut, currentColor)
+  }
+    
 
 
            
