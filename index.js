@@ -298,12 +298,12 @@ function checkForWinning(coloredPosition,rowsTopOut, currentColor){
   if (isWinning) return;}
 
 function checkDiagonallyOtherside(coloredPosition,rowsTopOut, currentColor){
-  let cellToadd= rowsTopOut[coloredPosition[1]][coloredPosition[0]]
-  console.log(cellToadd);
-  let winningCells = [cellToadd];
   cellToCheckCol= coloredPosition[0]-1;
   console.log(cellToCheckCol)
   cellToCheckRow= coloredPosition[1]+1;
+  let cellToadd= rowsTopOut[coloredPosition[1]][coloredPosition[0]]
+  console.log(cellToadd);
+  let winningCells = [cellToadd];
  while (cellToCheckCol>=0 && cellToCheckRow<=5 ) {
       let cellToCheck = rowsTopOut[cellToCheckRow][cellToCheckCol];
       console.log(cellToCheck);
