@@ -235,13 +235,15 @@ function checkForWinner(table,currentColor){
         "           has won!";
          let text=  document.querySelector(".winner");
          text.innerHTML= textToPut;
-        //  game= !game;
          for (let colors of number[0]){
              let colorClasslist= colors.classList;
              console.log(colorClasslist);
              colorClasslist.add("win");
              var myAudio = new Audio('victoryff.swf.mp3');
              myAudio.play();
+             setTimeout(() => {
+              renewGame()
+            }, 7000);
              console.log(colorClasslist); } 
         }
     }
@@ -313,6 +315,9 @@ const checkWinningCells = (cells, currentColor) => {
 
          var myAudio = new Audio('victoryff.swf.mp3');
          myAudio.play();
+         setTimeout(() => {
+           renewGame()
+         }, 7000);
     
         return true;
       };
@@ -399,9 +404,10 @@ function checkForWinning(coloredPosition,rowsTopOut, currentColor){
 //   }
   checkHorisontally(coloredPosition,rowsTopOut, currentColor);
   checkVertically(coloredPosition,rowsTopOut, currentColor)
-  }
+}
 
   setTopRowEventListener();
   cellClickEventListener();
-  
-           
+
+
+
