@@ -247,8 +247,8 @@ function checkForWinning(coloredPosition,rowsTopOut, currentColor){
       }
       else {break}
     }
-    let isWinning1 = checkWinningCells(winningCells,currentColor);
-    if (isWinning1) return;
+    let isWinning = checkWinningCells(winningCells,currentColor);
+    if (isWinning) return;
   }
 
   function checkDiagonally(coloredPosition,rowsTopOut, currentColor){
@@ -295,7 +295,8 @@ function checkForWinning(coloredPosition,rowsTopOut, currentColor){
   }
   console.log(winningCells);
   let isWinning = checkWinningCells(winningCells,currentColor);
-  if (isWinning) return;}
+  if (isWinning) 
+  return;}
 
 function checkDiagonallyOtherside(coloredPosition,rowsTopOut, currentColor){
   cellToCheckCol= coloredPosition[0]-1;
