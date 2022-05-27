@@ -293,10 +293,17 @@ function checkForWinning(coloredPosition,rowsTopOut, currentColor){
       }
     else {break}
   }
+  console.log(winningCells);
+  let isWinning = checkWinningCells(winningCells,currentColor);
+  if (isWinning) return;}
+
+function checkDiagonallyOtherside(coloredPosition,rowsTopOut, currentColor){
+  let cellToadd= rowsTopOut[coloredPosition[1]][coloredPosition[0]]
+  console.log(cellToadd);
+  let winningCells = [cellToadd];
   cellToCheckCol= coloredPosition[0]-1;
   console.log(cellToCheckCol)
   cellToCheckRow= coloredPosition[1]+1;
-
  while (cellToCheckCol>=0 && cellToCheckRow<=5 ) {
       let cellToCheck = rowsTopOut[cellToCheckRow][cellToCheckCol];
       console.log(cellToCheck);
@@ -361,7 +368,8 @@ function checkForWinning(coloredPosition,rowsTopOut, currentColor){
 
   checkHorisontally(coloredPosition,rowsTopOut, currentColor);
   checkVertically(coloredPosition,rowsTopOut, currentColor);
-  checkDiagonally(coloredPosition,rowsTopOut, currentColor)
+  checkDiagonally(coloredPosition,rowsTopOut, currentColor);
+  checkDiagonallyOtherside(coloredPosition,rowsTopOut, currentColor);
   checkforTie(rowsTopOut)
 }
 
