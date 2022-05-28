@@ -1,3 +1,5 @@
+
+   
 const cells = document.querySelectorAll('.cell:not(.topRow)');
 const topCells = document.querySelectorAll('.cell.topRow');
 let turn1 = "yellow";
@@ -30,7 +32,8 @@ const row5 = [cells[35], cells[36], cells[37], cells[38], cells[39], cells[40], 
 const rows = [topRow,row0, row1, row2, row3, row4, row5];
 
 function setTopRowEventListener(){
-     
+  if (!gameIsLive)
+     return
     for (let i =0; i<topCells.length; i++ ){
         topCells[i].addEventListener("mouseover", gridMouseover);
         topCells[i].addEventListener("mouseout", gridMouseout);
@@ -74,7 +77,8 @@ myBoard.addEventListener("click",function(){
     }
 
 function cellClick(e){
-  
+  if (!gameIsLive)
+  return
     
     let cellColRow= clickedCellPosition(e);
     let currentColor= addColor();
@@ -157,7 +161,6 @@ function renewGame(){
 const checkWinningCells = (cells, currentColor) => {
         if (cells.length < 4)
          return false;
-       
          let textToPut= currentColor+ 
          "           has won!";
           let text=  document.querySelector(".winner");
@@ -165,15 +168,14 @@ const checkWinningCells = (cells, currentColor) => {
         for (const cell of cells) {
           cell.classList.add('win');
         }
-
+        gameIsLive=false;
          var myAudio = new Audio('victoryff.swf.mp3');
          myAudio.play();
          setTimeout(() => {
            renewGame()
-         }, 5000);
+         }, 10000);
     
         return true;
-       
       };
 function checkForWinning(coloredPosition,rowsTopOut, currentColor){
     yellowTurn=!yellowTurn
@@ -365,7 +367,7 @@ function checkDiagonallyOtherside(coloredPosition,rowsTopOut, currentColor){
      text.innerHTML= textToPut;
      setTimeout(() => {
       renewGame()
-    }, 5000);
+    }, 10000);
 
     
   }
@@ -379,6 +381,3 @@ function checkDiagonallyOtherside(coloredPosition,rowsTopOut, currentColor){
 
   setTopRowEventListener();
   cellClickEventListener();
-
-
-
