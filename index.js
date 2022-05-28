@@ -144,6 +144,7 @@ function grabArrayClasslist(valueArray){
 }
 
 function renewGame(){
+  gameIsLive=true
     for ( let row of rows) {
       for (let cell of row) {
         cell.classList.remove('red');
@@ -171,15 +172,14 @@ const checkWinningCells = (cells, currentColor) => {
         gameIsLive=false;
          var myAudio = new Audio('victoryff.swf.mp3');
          myAudio.play();
-         setTimeout(() => {
-           renewGame()
-         }, 10000);
+        //  setTimeout(() => {
+        //    renewGame()
+        //  }, 10000);
     
         return true;
       };
 function checkForWinning(coloredPosition,rowsTopOut, currentColor){
     yellowTurn=!yellowTurn
-    // console.log(coloredPosition)
     function checkHorisontally(coloredPosition,rowsTopOut, currentColor){
     let cellToCheckCol= coloredPosition[0];
     let cellToCheckRow= coloredPosition[1];
@@ -365,9 +365,9 @@ function checkDiagonallyOtherside(coloredPosition,rowsTopOut, currentColor){
     " It's a tie!";
      let text=  document.querySelector(".winner");
      text.innerHTML= textToPut;
-     setTimeout(() => {
-      renewGame()
-    }, 10000);
+    //  setTimeout(() => {
+    //   renewGame()
+    // }, 10000);
 
     
   }
