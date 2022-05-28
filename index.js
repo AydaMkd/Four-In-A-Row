@@ -157,6 +157,7 @@ function renewGame(){
 const checkWinningCells = (cells, currentColor) => {
         if (cells.length < 4)
          return false;
+       
          let textToPut= currentColor+ 
          "           has won!";
           let text=  document.querySelector(".winner");
@@ -172,6 +173,7 @@ const checkWinningCells = (cells, currentColor) => {
          }, 5000);
     
         return true;
+       
       };
 function checkForWinning(coloredPosition,rowsTopOut, currentColor){
     yellowTurn=!yellowTurn
