@@ -169,7 +169,7 @@ const checkWinningCells = (cells, currentColor) => {
          myAudio.play();
          setTimeout(() => {
            renewGame()
-         }, 7000);
+         }, 5000);
     
         return true;
       };
@@ -323,8 +323,9 @@ function checkDiagonallyOtherside(coloredPosition,rowsTopOut, currentColor){
   cellToCheckCol= coloredPosition[0]+1;
   console.log(cellToCheckCol)
   cellToCheckRow= coloredPosition[1]-1;
+  console.log(cellToCheckRow)
 
- while (cellToCheckCol<=6 && cellToCheckRow<=0 ) {
+ while (cellToCheckCol<=6 && cellToCheckRow>=0 ) {
       let cellToCheck = rowsTopOut[cellToCheckRow][cellToCheckCol];
       console.log(cellToCheck);
       let getColorOfCellArray= Array.from(cellToCheck.classList)
@@ -362,7 +363,7 @@ function checkDiagonallyOtherside(coloredPosition,rowsTopOut, currentColor){
      text.innerHTML= textToPut;
      setTimeout(() => {
       renewGame()
-    }, 7000);
+    }, 5000);
 
     
   }
