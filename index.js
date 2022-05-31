@@ -1,4 +1,3 @@
-
    
 const cells = document.querySelectorAll('.cell:not(.topRow)');
 const topCells = document.querySelectorAll('.cell.topRow');
@@ -30,7 +29,6 @@ const row4 = [cells[28], cells[29], cells[30], cells[31], cells[32], cells[33], 
 const row5 = [cells[35], cells[36], cells[37], cells[38], cells[39], cells[40], cells[41]];
 
 const rows = [topRow,row0, row1, row2, row3, row4, row5];
-
 function setTopRowEventListener(){
   if (!gameIsLive)
      return
@@ -71,11 +69,12 @@ myBoard.addEventListener("click",function(){
  }
 
  function gridMouseover (e) {
+   if (!gameIsLive)
+   return;
    console.log(e);
     e.target.classList.add(addColor());
 
     }
-
 function cellClick(e){
   if (!gameIsLive)
   return
