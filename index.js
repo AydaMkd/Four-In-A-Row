@@ -32,12 +32,11 @@ const rows = [topRow,row0, row1, row2, row3, row4, row5];
 function setTopRowEventListener(){
   if (!gameIsLive)
      return
-    for (let i =0; i<topCells.length; i++ ){
-        topCells[i].addEventListener("mouseover", gridMouseover);
-        topCells[i].addEventListener("mouseout", gridMouseout);
+   addEventListener("mouseover", gridMouseover);
+   addEventListener("mouseout", gridMouseout);
        
     }
-}
+
 
 const mySound = document.getElementById("sound");   
 const myBoard = document.querySelector(".board");
@@ -54,9 +53,12 @@ myBoard.addEventListener("click",function(){
     
     }
 
- function gridMouseout(e){
-     e.target.classList.remove(turn1);
-     e.target.classList.remove(turn2);
+ function gridMouseout(){
+  for (let i =0; i<topCells.length; i++ )
+  {
+     topCells[i].classList.remove(turn1);
+     topCells[i].classList.remove(turn2);
+  }
 
  }
 
@@ -68,11 +70,13 @@ myBoard.addEventListener("click",function(){
      else { return turn2}
  }
 
- function gridMouseover (e) {
+ function gridMouseover () {
    if (!gameIsLive)
    return;
-   console.log(e);
-    e.target.classList.add(addColor());
+   for (let i =0; i<topCells.length; i++ ){
+     console.log(topCells[i])
+    topCells[i].classList.add(addColor())};
+    
 
     }
 function cellClick(e){
