@@ -29,31 +29,29 @@ const row4 = [cells[28], cells[29], cells[30], cells[31], cells[32], cells[33], 
 const row5 = [cells[35], cells[36], cells[37], cells[38], cells[39], cells[40], cells[41]];
 
 const rows = [topRow,row0, row1, row2, row3, row4, row5];
+
+// event listeners
+
 function setTopRowEventListener(){
   if (!gameIsLive)
      return
    addEventListener("mouseover", gridMouseover);
    addEventListener("mouseout", gridMouseout);
-       
-    }
-
+   }
 
 const mySound = document.getElementById("sound");   
 const myBoard = document.querySelector(".board");
 console.log(mySound);
-
 myBoard.addEventListener("click",function(){
    if (!gameIsLive)
    return
     mySound.play()});
  
  function cellClickEventListener(){ 
-    
     for (let i=0; i< cells.length; i++)
     { 
     cells[i].addEventListener("click", cellClick)};
-    
-    }
+     }
 
  function gridMouseout(){
   for (let i =0; i<topCells.length; i++ )
@@ -61,15 +59,11 @@ myBoard.addEventListener("click",function(){
      topCells[i].classList.remove(turn1);
      topCells[i].classList.remove(turn2);
   }
-
  }
 
  function addColor(){
-     if (yellowTurn){ return turn1
-
-     }
-
-     else { return turn2}
+     if (yellowTurn){ return turn1 }
+    else { return turn2}
  }
 
  function gridMouseover () {
@@ -78,9 +72,7 @@ myBoard.addEventListener("click",function(){
    for (let i =0; i<topCells.length; i++ ){
      console.log(topCells[i])
     topCells[i].classList.add(addColor())};
-    
-
-    }
+     }
 function cellClick(e){
   
   if (!gameIsLive)
@@ -88,16 +80,12 @@ function cellClick(e){
     
     let cellColRow= clickedCellPosition(e);
     let currentColor= addColor();
-    
-
     let cellCol= cellColRow[0];
     let rowsTopOut= rows.slice(1);
-
     let tableCol = columns[cellCol];
     let topRowOut= tableCol.slice(0,6);
 
-    function cellChoice(){
-        
+    function cellChoice(){   
     for (let cell of topRowOut){
         let cellClasslist= cell.classList;
         let cellClass= Array.from(cellClasslist);
@@ -114,6 +102,7 @@ function cellClick(e){
     console.log(coloredPosition);
     checkForWinning(coloredPosition,rowsTopOut, currentColor);              
 }
+// get cell classlist, color and position
 
 function cellRowAndCol(cell){
     let CellColumn= cell.toString().substring(13,14);
@@ -124,31 +113,25 @@ function cellRowAndCol(cell){
     return cellPosition;}
 
 function clickedCellPosition(e){
-
     let cellTarget= e.target.classList;
     let cellColumnRow= cellRowAndCol(cellTarget);
-    
     return cellColumnRow;
     }
-
 function cellColor(cell){
     let colorClicked= cell.classList;
     return colorClicked;
 }
-
-
 function grabArrayClasslist(valueArray){
-
     let arrayValue= []
     for (let value  of valueArray)
-    {
-        let classlistValue= value.classList;
+    {   let classlistValue= value.classList;
         arrayFromValue= Array.from(classlistValue);
         arrayValue.push(arrayFromValue);
     }
 
     return arrayValue
 }
+// renew game function
 
 function renewGame(){
   gameIsLive=true
@@ -160,12 +143,12 @@ function renewGame(){
         
       }}
       let text1=  document.querySelector(".winner");
-                 text1.innerHTML= null;
+       text1.innerHTML= null;
               
      } 
       const restart= document.querySelector(".reload");  
       restart.addEventListener("click", renewGame); 
-
+// function to check for winning cells
 const checkWinningCells = (cells, currentColor) => {
         if (cells.length < 4)
          return false;
@@ -183,9 +166,10 @@ const checkWinningCells = (cells, currentColor) => {
         //    renewGame()
         //  }, 10000);
         yellowTurn=true
-    
         return true;
       };
+// check game status
+
 function checkForWinning(coloredPosition,rowsTopOut, currentColor){
     yellowTurn=!yellowTurn
     function checkHorisontally(coloredPosition,rowsTopOut, currentColor){
@@ -233,8 +217,6 @@ function checkForWinning(coloredPosition,rowsTopOut, currentColor){
     let cellToadd= rowsTopOut[cellToCheckRow][cellToCheckCol]
     console.log(cellToadd);
     let winningCells = [cellToadd];
-    // let rowToCheck= rowsTopOut[cellToCheckRow][cellToCheckCol];
-    // console.log(rowToCheck);
    for ( let i =cellToCheckRow-1; i>=0; i--) {
        
         let cellToCheck = rowsTopOut[i][cellToCheckCol];
@@ -265,7 +247,6 @@ function checkForWinning(coloredPosition,rowsTopOut, currentColor){
     let isWinning = checkWinningCells(winningCells,currentColor);
     if (isWinning) return;
   }
-
   function checkDiagonally(coloredPosition,rowsTopOut, currentColor){
   cellToCheckCol= coloredPosition[0]-1;
   console.log(cellToCheckCol)
@@ -314,7 +295,6 @@ function checkForWinning(coloredPosition,rowsTopOut, currentColor){
   let isWinning = checkWinningCells(winningCells,currentColor);
   if (isWinning) 
   return;}
-
 function checkDiagonallyOtherside(coloredPosition,rowsTopOut, currentColor){
   cellToCheckCol= coloredPosition[0]-1;
   console.log(cellToCheckCol)
@@ -381,11 +361,6 @@ function checkDiagonallyOtherside(coloredPosition,rowsTopOut, currentColor){
     " It's a tie!";
      let text=  document.querySelector(".winner");
      text.innerHTML= textToPut;
-    //  setTimeout(() => {
-    //   renewGame()
-    // }, 10000);
-
-    
   }
 
   checkHorisontally(coloredPosition,rowsTopOut, currentColor);
@@ -394,6 +369,5 @@ function checkDiagonallyOtherside(coloredPosition,rowsTopOut, currentColor){
   checkDiagonallyOtherside(coloredPosition,rowsTopOut, currentColor);
   checkforTie(rowsTopOut)
 }
-
   setTopRowEventListener();
   cellClickEventListener();
