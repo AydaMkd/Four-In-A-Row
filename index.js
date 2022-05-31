@@ -82,6 +82,7 @@ myBoard.addEventListener("click",function(){
 
     }
 function cellClick(e){
+  
   if (!gameIsLive)
   return
     
@@ -181,6 +182,7 @@ const checkWinningCells = (cells, currentColor) => {
         //  setTimeout(() => {
         //    renewGame()
         //  }, 10000);
+        yellowTurn=true
     
         return true;
       };
