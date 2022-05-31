@@ -112,9 +112,9 @@ border: 3px solid black;
 
 .reload{
   background-color: rgb(247, 165, 89);
-  position: absolute;
-  left: 80px;
-  top: 300px;
+  position: fixed;
+  left: 58px;
+  top: 260px;
   font-size: 30px;
   
 }
