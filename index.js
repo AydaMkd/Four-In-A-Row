@@ -6,10 +6,7 @@ let turn2= "Red";
 let yellowTurn = true; 
 let gameIsLive = true;
 
-
-
 //Columns
-
 const column0 = [cells[35], cells[28], cells[21], cells[14], cells[7], cells[0], topCells[0]];
 const column1 = [cells[36], cells[29], cells[22], cells[15], cells[8], cells[1], topCells[1]];
 const column2 = [cells[37], cells[30], cells[23], cells[16], cells[9], cells[2], topCells[2]];
@@ -41,7 +38,6 @@ function setTopRowEventListener(){
 
 const mySound = document.getElementById("sound");   
 const myBoard = document.querySelector(".board");
-console.log(mySound);
 myBoard.addEventListener("click",function(){
    if (!gameIsLive)
    return
@@ -70,14 +66,12 @@ myBoard.addEventListener("click",function(){
    if (!gameIsLive)
    return;
    for (let i =0; i<topCells.length; i++ ){
-     console.log(topCells[i])
     topCells[i].classList.add(addColor())};
      }
 function cellClick(e){
   
   if (!gameIsLive)
   return
-    
     let cellColRow= clickedCellPosition(e);
     let currentColor= addColor();
     let cellCol= cellColRow[0];
@@ -89,7 +83,6 @@ function cellClick(e){
     for (let cell of topRowOut){
         let cellClasslist= cell.classList;
         let cellClass= Array.from(cellClasslist);
-        console.log(cellClass)
         if (!cellClass.includes('Yellow') && !cellClass.includes('Red'))
 
        {return cell}
@@ -99,7 +92,6 @@ function cellClick(e){
     {coloredCellclasslist.add(addColor())};
     gridMouseout(e)
     let coloredPosition= (cellRowAndCol(coloredCellclasslist));
-    console.log(coloredPosition);
     checkForWinning(coloredPosition,rowsTopOut, currentColor);              
 }
 // get cell classlist, color and position
@@ -128,7 +120,6 @@ function grabArrayClasslist(valueArray){
         arrayFromValue= Array.from(classlistValue);
         arrayValue.push(arrayFromValue);
     }
-
     return arrayValue
 }
 // renew game function
@@ -143,8 +134,7 @@ function renewGame(){
         
       }}
       let text1=  document.querySelector(".winner");
-       text1.innerHTML= null;
-              
+       text1.innerHTML= null;      
      } 
       const restart= document.querySelector(".reload");  
       restart.addEventListener("click", renewGame); 
@@ -176,20 +166,15 @@ function checkForWinning(coloredPosition,rowsTopOut, currentColor){
     let cellToCheckCol= coloredPosition[0];
     let cellToCheckRow= coloredPosition[1];
     let cellToadd= rowsTopOut[cellToCheckRow][cellToCheckCol]
-    console.log(cellToadd);
     let winningCells = [cellToadd];
     let rowToCheck= rowsTopOut[cellToCheckRow][cellToCheckCol];
-    console.log(rowToCheck);
    for ( let i =cellToCheckCol-1; i>=0 && i>=cellToCheckCol-4; i--) {
        
         let cellToCheck = rowsTopOut[cellToCheckRow][i];
         let getColorOfCellArray= Array.from(cellToCheck.classList)
-        console.log(getColorOfCellArray);
         let getColorOfCell= getColorOfCellArray[3]
-        console.log(getColorOfCell);
         if (getColorOfCell === currentColor) {
-          winningCells.push(cellToCheck);  
-          console.log(winningCells)   
+          winningCells.push(cellToCheck);    
       } else {break};
       let isWinning = checkWinningCells(winningCells,currentColor);
       if (isWinning) return;
@@ -197,12 +182,9 @@ function checkForWinning(coloredPosition,rowsTopOut, currentColor){
    for ( let i =cellToCheckCol+1; i<=6 && i<=cellToCheckCol+4; i++) {
         let cellToCheck = rowsTopOut[cellToCheckRow][i];
         let getColorOfCellArray= Array.from(cellToCheck.classList)
-        console.log(getColorOfCellArray);
         let getColorOfCell= getColorOfCellArray[3]
-        console.log(getColorOfCell);
         if (getColorOfCell === currentColor) {
           winningCells.push(cellToCheck);  
-          console.log(winningCells)
           
       }else {break};
     }
@@ -212,22 +194,15 @@ function checkForWinning(coloredPosition,rowsTopOut, currentColor){
 
   function checkVertically(coloredPosition,rowsTopOut, currentColor){
     let cellToCheckCol= coloredPosition[0];
-    console.log(cellToCheckCol)
     let cellToCheckRow= coloredPosition[1];
     let cellToadd= rowsTopOut[cellToCheckRow][cellToCheckCol]
-    console.log(cellToadd);
     let winningCells = [cellToadd];
    for ( let i =cellToCheckRow-1; i>=0; i--) {
-       
         let cellToCheck = rowsTopOut[i][cellToCheckCol];
-        console.log(cellToCheck);
         let getColorOfCellArray= Array.from(cellToCheck.classList)
-        console.log(getColorOfCellArray);
         let getColorOfCell= getColorOfCellArray[3]
-        console.log(getColorOfCell);
         if (getColorOfCell === currentColor) {
           winningCells.push(cellToCheck);  
-          console.log(winningCells)
       } else {break};
       let isWinning = checkWinningCells(winningCells,currentColor);
   if (isWinning) return;
@@ -235,12 +210,11 @@ function checkForWinning(coloredPosition,rowsTopOut, currentColor){
    for ( let i =cellToCheckRow+1; i<=5; i++) {
         let cellToCheck = rowsTopOut[i][cellToCheckCol];
         let getColorOfCellArray= Array.from(cellToCheck.classList)
-        console.log(getColorOfCellArray);
         let getColorOfCell= getColorOfCellArray[3]
-        console.log(getColorOfCell);
+        // console.log(getColorOfCell);
         if (getColorOfCell === currentColor) {
           winningCells.push(cellToCheck);  
-          console.log(winningCells)
+          // console.log(winningCells)
       }
       else {break}
     }
@@ -249,69 +223,51 @@ function checkForWinning(coloredPosition,rowsTopOut, currentColor){
   }
   function checkDiagonally(coloredPosition,rowsTopOut, currentColor){
   cellToCheckCol= coloredPosition[0]-1;
-  console.log(cellToCheckCol)
   cellToCheckRow= coloredPosition[1]-1;
   let cellToadd= rowsTopOut[coloredPosition[1]][coloredPosition[0]]
-  console.log(cellToadd);
   let winningCells = [cellToadd];
 
  while (cellToCheckCol>=0 && cellToCheckRow>=0)
      {
       let cellToCheck = rowsTopOut[cellToCheckRow][cellToCheckCol];
-      console.log(cellToCheck);
       let getColorOfCellArray= Array.from(cellToCheck.classList)
-      console.log(getColorOfCellArray);
       let getColorOfCell= getColorOfCellArray[3]
-      console.log(getColorOfCell);
       if (getColorOfCell === currentColor) {
         winningCells.push(cellToCheck);  
         cellToCheckRow--;
         cellToCheckCol--
-        console.log(winningCells)
     } else {break};
     let isWinning = checkWinningCells(winningCells,currentColor);
     if (isWinning) return;
   }
    cellToCheckCol= coloredPosition[0]+1;
-  console.log(cellToCheckCol)
   cellToCheckRow= coloredPosition[1]+1;
 
  while (cellToCheckCol<=6 && cellToCheckRow<=5 ) {
       let cellToCheck = rowsTopOut[cellToCheckRow][cellToCheckCol];
-      console.log(cellToCheck);
       let getColorOfCellArray= Array.from(cellToCheck.classList)
-      console.log(getColorOfCellArray);
       let getColorOfCell= getColorOfCellArray[3]
-      console.log(getColorOfCell);
       if (getColorOfCell === currentColor) {
         winningCells.push(cellToCheck);  
-        console.log(winningCells)
         cellToCheckCol++
         cellToCheckRow++
       }
     else {break}
   }
-  console.log(winningCells);
   let isWinning = checkWinningCells(winningCells,currentColor);
   if (isWinning) 
   return;}
 function checkDiagonallyOtherside(coloredPosition,rowsTopOut, currentColor){
   cellToCheckCol= coloredPosition[0]-1;
-  console.log(cellToCheckCol)
   cellToCheckRow= coloredPosition[1]+1;
   let cellToadd= rowsTopOut[coloredPosition[1]][coloredPosition[0]]
-  console.log(cellToadd);
   let winningCells = [cellToadd];
  while (cellToCheckCol>=0 && cellToCheckRow<=5 ) {
       let cellToCheck = rowsTopOut[cellToCheckRow][cellToCheckCol];
-      console.log(cellToCheck);
       let getColorOfCellArray= Array.from(cellToCheck.classList)
-      console.log(getColorOfCellArray);
       let getColorOfCell= getColorOfCellArray[3]
-      console.log(getColorOfCell);
       if (getColorOfCell === currentColor) {
         winningCells.push(cellToCheck);  
-        console.log(winningCells)
         cellToCheckCol--
         cellToCheckRow++
       }
@@ -320,26 +276,19 @@ function checkDiagonallyOtherside(coloredPosition,rowsTopOut, currentColor){
     if (isWinning) return;
   }
   cellToCheckCol= coloredPosition[0]+1;
-  console.log(cellToCheckCol)
   cellToCheckRow= coloredPosition[1]-1;
-  console.log(cellToCheckRow)
 
  while (cellToCheckCol<=6 && cellToCheckRow>=0 ) {
       let cellToCheck = rowsTopOut[cellToCheckRow][cellToCheckCol];
-      console.log(cellToCheck);
       let getColorOfCellArray= Array.from(cellToCheck.classList)
-      console.log(getColorOfCellArray);
       let getColorOfCell= getColorOfCellArray[3]
-      console.log(getColorOfCell);
       if (getColorOfCell === currentColor) {
         winningCells.push(cellToCheck);  
-        console.log(winningCells)
         cellToCheckCol++
         cellToCheckRow--
       }
     else {break}
   }
- console.log(winningCells);
   let isWinning = checkWinningCells(winningCells,currentColor);
   if (isWinning) return;}
 
@@ -347,9 +296,7 @@ function checkDiagonallyOtherside(coloredPosition,rowsTopOut, currentColor){
     for (const row of rowsTopOut) {
       for (const cell of row) {
         let getColorOfCellArray= Array.from(cell.classList)
-        console.log(getColorOfCellArray);
         let getColorOfCell= getColorOfCellArray[3]
-        console.log(getColorOfCell);
         if (getColorOfCell!== turn1 && getColorOfCell!==turn2)
         {
           return;
