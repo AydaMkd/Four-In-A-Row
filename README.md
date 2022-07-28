@@ -12,7 +12,7 @@ I ran into issues having it run vertically and horisontally in the end as I was 
 
 The game also checks for a tie, it declares a tie once all the cells are colored and no winner is declared but I know in most cases when the game leads to a tie, the result could be detected before all cells are colored. So I am currently working on improving the tie situation detection. 
 
-As far as grid template, using divs and classlists to distinguish rows and columns was the clearest way for me to display the grid and access the cells later in javascript. 
+As far as grid template, using divs and classes to distinguish rows and columns was the clearest way for me to display the grid and access the cells later in javascript. 
 
 The CSS for this game for now is just basic and minimal and I am looking forward to adding more options and have it more interactive in the future.
 
