@@ -1,6 +1,6 @@
 # Four-In-A-Row
 
-This is my first Javascript project that I build by myself from scratch! It's a simple game but it was both fun and challenging building it and it let me review and even get more familiar with lots of HTML, CSS and Javascript concepts that I have learnt and weren't so clear to me, such as event listeners, how to use arguments and paramaters in functions, divs and mostly classlists!! 
+This is my first Javascript project that I build by myself from scratch! It's a simple game but it was both fun and challenging building it and it let me review and even get more familiar with lots of HTML, CSS and Javascript concepts that I have learned and weren't so clear to me, such as event listeners, how to use arguments and paramaters in functions, divs and mostly classlists!! 
 
 The way it works, if you move the mouse over the top of the grid, colors will pop to show you whether it's red or yellow turn.
 
