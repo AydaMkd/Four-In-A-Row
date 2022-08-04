@@ -18,7 +18,7 @@ The CSS for this game for now is just basic and minimal and I am looking forward
 
 Some of the challenging parts were, checking diagonally and since the first empty cell in every clicked column will get colored, it was challenging to pick whether I need the colored cell or the clicked cell each turn. I first thought of checking diagonally based on the cell that was just colored which took me a lot of time without coming up with something that worked, then after receiving help, I figured that checking each diagonal of the grid that could possibly hold winning cells was clearer, but this poses another problem how to make sure the picked cells of the same color on each diagonal were in a row...
 
-Another challenge was accessing the position of cells through their Classlists, but once this issue was figured out, I got to advance quicker in building my game. 
+Another challenge was accessing the position of cells through their Class lists, but once this issue was figured out, I got to advance quicker in building my game. 
 
 I believe this is a long term project, it still needs improvements to make the code more efficient. I am looking forward to improving its functionality as I advance more in my full stack web development journey, such as making it possible for two players to play a game session in different computers and adding the option of playing against the computer. 
 
